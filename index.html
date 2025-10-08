@@ -24,73 +24,15 @@
       position: relative;
       cursor: pointer;
     }
-.envelope {
-  position: relative;
-  width: 300px;
-  height: 200px;
-  background: #ff8fa3;
-  border-radius: 0 0 10px 10px;
-  overflow: visible; /* Cho phép thư trắng trượt ra ngoài */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
 
-.letter {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 85%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  border-radius: 8px;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 2;
-  transition: all 1s ease;
-}
-
-.envelope:hover .letter {
-  top: -30%; /* trượt hẳn lên để lộ toàn bộ nội dung */
-}
-
-/* Nắp phong bì */
-.envelope::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-left: 150px solid transparent;
-  border-right: 150px solid transparent;
-  border-bottom: 100px solid #ff6b81;
-  border-radius: 5px;
-  transition: all 1s ease;
-  z-index: 1;
-}
-
-.envelope:hover::before {
-  transform: rotateX(180deg);
-  transform-origin: top;
-}
-
-
-    .front {
-      position: absolute;
-      border-right: 190px solid #f4978e;
-      border-top: 100px solid transparent;
-      border-bottom: 110px solid transparent;
-      left: 130px;
-      top: 5px;
-      z-index: 5;
-      transition: 1s ease-in-out;
-    }
-
-    .front::before {
-      content: '';
-      position: absolute;
-      border-left: 310px solid #fda996;
-      border-top: 205px solid transparent;
-      left: -130px;
-      top: -100px;
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background: #ff8fa3;
+      border-radius: 0 0 10px 10px;
+      overflow: visible;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     }
 
     .card {
@@ -131,12 +73,32 @@
       animation: fadeIn 3s ease-in-out infinite alternate;
     }
 
-    /* Khi hover - mở thư */
-    .valentines:hover .card {
+    .front {
+      position: absolute;
+      border-right: 190px solid #f4978e;
+      border-top: 100px solid transparent;
+      border-bottom: 110px solid transparent;
+      left: 130px;
+      top: 5px;
+      z-index: 5;
+      transition: 1s ease-in-out;
+    }
+
+    .front::before {
+      content: '';
+      position: absolute;
+      border-left: 310px solid #fda996;
+      border-top: 205px solid transparent;
+      left: -130px;
+      top: -100px;
+    }
+
+    /* --- Khi mở thư (bằng class .open) --- */
+    .valentines.open .card {
       transform: translateY(-190px);
     }
 
-    .valentines:hover .front {
+    .valentines.open .front {
       transform: rotateX(180deg);
       transform-origin: top;
       opacity: 0;
@@ -163,15 +125,8 @@
       border-radius: 50%;
     }
 
-    .heart::before {
-      top: -20px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: 20px;
-      top: 0;
-    }
+    .heart::before { top: -20px; left: 0; }
+    .heart::after { left: 20px; top: 0; }
 
     /* Animation */
     @keyframes floatUp {
@@ -252,24 +207,34 @@
 </head>
 
 <body>
-  <div class="container valentines">
-    <div class="envelope">
-      <div class="card">
-        <p class="text">
-          Gửi đến em người anh thương 💖<br>
-          Anh không cần em phải hoàn hảo, chỉ cần em là chính em. <br>
-          Anh chỉ mong được trở thành, lý do khiến em mỉm cười mỗi ngày<br>
-          Anh thương em bằng tất cả<br>
-          sự chân thành của một người thật lòng 💌
-        </p>
-        <div class="heart"></div>
+  <div class="container">
+    <div class="valentines" id="valentines">
+      <div class="envelope">
+        <div class="card">
+          <p class="text">
+            Gửi đến em người anh thương 💖<br>
+            Anh không cần em phải hoàn hảo,<br>
+            chỉ cần em là chính em.<br>
+            Anh chỉ mong được trở thành<br>
+            lý do khiến em mỉm cười mỗi ngày 😊<br>
+            Anh thương em bằng tất cả<br>
+            sự chân thành của một người thật lòng 💌
+          </p>
+          <div class="heart"></div>
+        </div>
       </div>
+      <div class="front"></div>
+      <div class="shadow"></div>
     </div>
-    <div class="front"></div>
-    <div class="shadow"></div>
   </div>
 
   <script>
+    const valentines = document.getElementById("valentines");
+
+    valentines.addEventListener("click", () => {
+      valentines.classList.toggle("open");
+    });
+
     // tạo trái tim bay
     function createHeart() {
       const heart = document.createElement('div');
