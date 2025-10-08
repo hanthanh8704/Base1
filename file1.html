@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lá thư tỏ tình 💌</title>
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at bottom, #ffccd5, #f08080, #e63946);
+      overflow: hidden;
+      font-family: 'Brush Script MT', cursive;
+    }
+
+    .container {
+      position: relative;
+      animation: floatUp 3s ease-in-out infinite alternate;
+    }
+
+    .valentines {
+      position: relative;
+      cursor: pointer;
+    }
+.envelope {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  background: #ff8fa3;
+  border-radius: 0 0 10px 10px;
+  overflow: visible; /* Cho phép thư trắng trượt ra ngoài */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.letter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 85%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  transition: all 1s ease;
+}
+
+.envelope:hover .letter {
+  top: -30%; /* trượt hẳn lên để lộ toàn bộ nội dung */
+}
+
+/* Nắp phong bì */
+.envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-bottom: 100px solid #ff6b81;
+  border-radius: 5px;
+  transition: all 1s ease;
+  z-index: 1;
+}
+
+.envelope:hover::before {
+  transform: rotateX(180deg);
+  transform-origin: top;
+}
+
+
+    .front {
+      position: absolute;
+      border-right: 190px solid #f4978e;
+      border-top: 100px solid transparent;
+      border-bottom: 110px solid transparent;
+      left: 130px;
+      top: 5px;
+      z-index: 5;
+      transition: 1s ease-in-out;
+    }
+
+    .front::before {
+      content: '';
+      position: absolute;
+      border-left: 310px solid #fda996;
+      border-top: 205px solid transparent;
+      left: -130px;
+      top: -100px;
+    }
+
+    .card {
+      position: absolute;
+      width: 270px;
+      height: 190px;
+      background: #fff8f0;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 15px;
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+      z-index: 2;
+      transition: transform 1s ease-in-out;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 2px dashed #6d6875;
+      border-radius: 5px;
+    }
+
+    .text {
+      font-size: 15px;
+      color: #6d6875;
+      line-height: 1.4;
+      z-index: 3;
+      position: relative;
+      animation: fadeIn 3s ease-in-out infinite alternate;
+    }
+
+    /* Khi hover - mở thư */
+    .valentines:hover .card {
+      transform: translateY(-190px);
+    }
+
+    .valentines:hover .front {
+      transform: rotateX(180deg);
+      transform-origin: top;
+      opacity: 0;
+    }
+
+    /* Trái tim nhỏ trong thư */
+    .heart {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      background: red;
+      transform: rotate(45deg);
+      border-radius: 50% 0 0 50%;
+      margin-top: 10px;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -20px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 20px;
+      top: 0;
+    }
+
+    /* Animation */
+    @keyframes floatUp {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-30px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0.7; }
+      to { opacity: 1; }
+    }
+
+    /* ===== Trái tim bay ===== */
+    .floating-heart {
+      position: absolute;
+      bottom: 0;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 0, 100, 0.8);
+      transform: rotate(45deg);
+      border-radius: 50% 0 0 50%;
+      animation: floatHearts 6s linear infinite;
+      z-index: 0;
+    }
+
+    .floating-heart::before,
+    .floating-heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 0, 100, 0.8);
+      border-radius: 50%;
+    }
+
+    .floating-heart::before { top: -10px; left: 0; }
+    .floating-heart::after { left: 10px; top: 0; }
+
+    @keyframes floatHearts {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-800px) rotate(45deg); opacity: 0; }
+    }
+
+    /* ===== Hoa rơi ===== */
+    .petal {
+      position: absolute;
+      top: -10px;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50% 50% 50% 0;
+      opacity: 0.7;
+      animation: fall 6s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(800px) rotate(360deg); opacity: 0; }
+    }
+
+    .shadow {
+      position: absolute;
+      width: 340px;
+      height: 25px;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 50%;
+      top: 300px;
+      animation: pulse 3s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scaleX(1); }
+      50% { transform: scaleX(0.8); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container valentines">
+    <div class="envelope">
+      <div class="card">
+        <p class="text">
+          Gửi đến em người anh thương 💖<br>
+          Anh không cần em phải hoàn hảo, chỉ cần em là chính em. <br>
+          Anh chỉ mong được trở thành, lý do khiến em mỉm cười mỗi ngày<br>
+          Anh thương em bằng tất cả<br>
+          sự chân thành của một người thật lòng 💌
+        </p>
+        <div class="heart"></div>
+      </div>
+    </div>
+    <div class="front"></div>
+    <div class="shadow"></div>
+  </div>
+
+  <script>
+    // tạo trái tim bay
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.animationDuration = 4 + Math.random() * 4 + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+
+    // tạo hoa rơi
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = Math.random() * window.innerWidth + 'px';
+      petal.style.background = `hsl(${Math.random() * 40 + 330}, 80%, 80%)`;
+      petal.style.animationDuration = 4 + Math.random() * 5 + 's';
+      document.body.appendChild(petal);
+      setTimeout(() => petal.remove(), 9000);
+    }
+
+    setInterval(createHeart, 600);
+    setInterval(createPetal, 500);
+  </script>
+</body>
+</html>
